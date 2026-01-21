@@ -82,4 +82,20 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Build and push Proxy
+        uses: docker/build-push-action@v4
+        with:
+          context: ./src/microservices/proxy
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/proxy-service:latest
+
+      - name: Build and push Events
+        uses: docker/build-push-action@v4
+        with:
+          context: ./src/microservices/events
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/events-service:latest
+    
+
+
       

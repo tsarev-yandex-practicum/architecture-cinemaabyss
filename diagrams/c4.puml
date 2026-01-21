@@ -1,0 +1,33 @@
+@startuml с4
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "Пользователь", "Пользователь системы CinemaAbyss")
+
+System_Boundary(cinema_abyss, "Система CinemaAbyss") {
+    Container(api_gateway, "API-шлюз", "HTTP Server", "Единая точка входа для всех внешних запросов, маршрутизирует их в соответствующие микросервисы")
+
+    Container(user_service, "Сервис пользователей", "Управляет жизненным циклом пользователей")
+
+    Container(movie_service, "Сервис фильмов", "Управляет каталогом фильмов")
+
+    Container(payment_service, "Сервис платежей", "Обработка платежей пользователей")
+
+    Container(subscription_service, "Сервис подписок", "Управление подписками пользователей")
+
+    ContainerDb(shared_db, "Общая база данных", "PostgreSQL", "БД для всех доменов(польз., фильмы, платежи, подписки)")
+}
+
+Rel(user, api_gateway, "Взаимодействие через веб/мобильное приложение", "HTTPS/JSON")
+
+Rel(api_gateway, user_service, "Маршрутизирует запросы в", "HTTP/JSON")
+Rel(api_gateway, movie_service, "Маршрутизирует запросы в", "HTTP/JSON")
+Rel(api_gateway, payment_service, "Маршрутизирует запросы в", "HTTP/JSON")
+Rel(api_gateway, subscription_service, "Маршрутизирует запросы в", "HTTP/JSON")
+
+Rel(user_service, shared_db, "Чтение/Запись", "SQL")
+Rel(movie_service, shared_db, "Чтение/Запись", "SQL")
+Rel(payment_service, shared_db, "Чтение/Запись", "SQL")
+Rel(subscription_service, shared_db, "Чтение/Запись", "SQL")
+
+LAYOUT_WITH_LEGEND()
+@enduml
