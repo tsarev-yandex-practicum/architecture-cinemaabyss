@@ -1,0 +1,54 @@
+@startuml C4 Container Diagram — Online Cinema (TO-BE)
+!include <C4/C4_Container>
+
+Person(user, "User", "Uses web, mobile or Smart TV client")
+
+System_Boundary(cinema, "Online Cinema Platform") {
+
+    Container(api_gateway, "API Gateway", "Go / HTTP", "Single entry point. Routes requests, adapts responses for different devices")
+
+    Container(auth_service, "User/Auth Service", "Go / REST",  "Authentication and user profiles")
+
+    Container(video_service, "Video Catalog Service", "Go / REST", "Movies and video catalog")
+
+    Container(metadata_service, "Metadata Service", "Go / REST", "Genres, actors, ratings, movie metadata")
+
+    Container(payment_service, "Payments Service", "Go / REST", "Payments, subscriptions, discounts")
+
+    Container(favorites_service, "Favorites & Ratings Service", "Go / REST", "User favorites and movie ratings")
+
+    ContainerDb(user_db, "Users DB", "PostgreSQL", "Users data")
+    ContainerDb(video_db, "Videos DB", "PostgreSQL", "Video catalog data")
+    ContainerDb(metadata_db, "Metadata DB", "PostgreSQL", "Movie metadata")
+    ContainerDb(payment_db, "Payments DB", "PostgreSQL", "Payments and subscriptions")
+    ContainerDb(favorites_db, "Favorites DB", "PostgreSQL", "Favorites and ratings")
+
+    Container(kafka, "Kafka", "Event Streaming", "Asynchronous events for MVP and further evolution")
+}
+
+System_Ext(recommendation_system, "Recommendation System", "External service providing movie recommendations")
+
+Rel(user, api_gateway, "Uses", "HTTPS/REST")
+
+Rel(api_gateway, auth_service, "Routes requests", "REST")
+Rel(api_gateway, video_service, "Routes requests", "REST")
+Rel(api_gateway, metadata_service, "Routes requests", "REST")
+Rel(api_gateway, payment_service, "Routes requests", "REST")
+Rel(api_gateway, favorites_service, "Routes requests", "REST")
+
+Rel(auth_service, user_db, "Reads/Writes", "SQL")
+Rel(video_service, video_db, "Reads/Writes", "SQL")
+Rel(metadata_service, metadata_db, "Reads/Writes", "SQL")
+Rel(payment_service, payment_db, "Reads/Writes", "SQL")
+Rel(favorites_service, favorites_db, "Reads/Writes", "SQL")
+
+Rel(auth_service, kafka, "Publishes events", "Async")
+Rel(video_service, kafka, "Publishes events", "Async")
+Rel(metadata_service, kafka, "Publishes events", "Async")
+Rel(payment_service, kafka, "Publishes events", "Async")
+Rel(favorites_service, kafka, "Publishes events", "Async")
+
+Rel(kafka, recommendation_system, "Streams events", "Async")  ' [assumption]
+Rel(api_gateway, recommendation_system, "Requests recommendations", "REST")
+
+@enduml
