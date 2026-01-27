@@ -19,7 +19,7 @@ data:
   EVENTS_SERVICE_URL: "http://events-service:{{ .Values.eventsService.service.port }}"
   
   # Kafka
-  KAFKA_BROKERS: "kafka-broker:9092"
+  KAFKA_BROKERS: "kafka.cinemaabyss.svc.cluster.local:9092"
   
   # Strangler Fig configuration
   GRADUAL_MIGRATION: {{ .Values.config.gradualMigration | quote }}

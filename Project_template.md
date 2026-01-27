@@ -282,6 +282,7 @@ cat .docker/config.json | base64
 ![Тест 2](./task_3/test_2.png)
 ![Тест 3](./task_3/test_3.png)
 ![Тест 4](./task_3/test_4.png)
+![Тест 5](./task_3/test_5.png)
 
 # Задание 4
 Для простоты дальнейшего обновления и развертывания вам как архитектуру необходимо так же реализовать helm-чарты для прокси-сервиса и проверить работу 
@@ -356,6 +357,9 @@ minikube tunnel
 Потом вызовите 
 https://cinemaabyss.example.com/api/movies
 и приложите скриншот развертывания helm и вывода https://cinemaabyss.example.com/api/movies
+
+![Helm](./helm.png)
+![API](./api.png)
 
 ## Удаляем все
 
