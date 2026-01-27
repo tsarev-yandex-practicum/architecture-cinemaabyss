@@ -112,7 +112,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Generate metadata for Proxy Service
-        id: meta-proxy
+        id: metadata-proxy
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.PROXY_SERVICE_IMAGE_NAME }}
