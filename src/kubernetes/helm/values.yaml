@@ -5,7 +5,7 @@ global:
 
 # Image pull secrets
 imagePullSecrets:
-  dockerconfigjson: ewoJImF1dGhzIjogewoJCSJnaGNyLmlvIjogewoJCQkiYXV0aCI6
+  dockerconfigjson: eyJhdXRocyI6eyJnaGNyLmlvIjp7ImF1dGgiOiJkblpzWVdReU1USTZaMmh3WDNCcWJHczFiRGx6VVRsUlZFZ3dSM0ZuUzJOTVNIRnBSbFZOVUhWNk1URmhhMUUwU3c9PSJ9fX0=
 # Database configuration
 database:
   host: postgres
@@ -19,31 +19,31 @@ database:
     pullPolicy: IfNotPresent
   resources:
     limits:
-      cpu: 1000m
-      memory: 1Gi
-    requests:
       cpu: 500m
       memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
   persistence:
     enabled: true
-    size: 10Gi
+    size: 5Gi
     accessMode: ReadWriteOnce
 
 # Monolith configuration
 monolith:
   enabled: true
   image:
-    repository: ghcr.io/db-exp/cinemaabysstest/monolith
+    repository: ghcr.io/vvlad212/architecture-cinemaabyss/monolith
     tag: latest
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   replicas: 1
   resources:
     limits:
-      cpu: 500m
-      memory: 512Mi
+      cpu: 300m
+      memory: 256Mi
     requests:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 50m
+      memory: 64Mi
   service:
     port: 8080
     targetPort: 8080
@@ -53,9 +53,9 @@ monolith:
 proxyService:
   enabled: true
   image:
-    repository: ghcr.io/db-exp/cinemaabysstest/proxy-service
+    repository: ghcr.io/vvlad212/architecture-cinemaabyss/proxy-service
     tag: latest
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   replicas: 1
   resources:
     limits:
@@ -73,9 +73,9 @@ proxyService:
 moviesService:
   enabled: true
   image:
-    repository: ghcr.io/db-exp/cinemaabysstest/movies-service
+    repository: ghcr.io/vvlad212/architecture-cinemaabyss/movies-service
     tag: latest
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   replicas: 1
   resources:
     limits:
@@ -93,9 +93,9 @@ moviesService:
 eventsService:
   enabled: true
   image:
-    repository: ghcr.io/db-exp/cinemaabysstest/events-service
+    repository: ghcr.io/vvlad212/architecture-cinemaabyss/events-service
     tag: latest
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
   replicas: 1
   resources:
     limits:
@@ -119,11 +119,11 @@ kafka:
   replicas: 1
   resources:
     limits:
-      cpu: 1000m
-      memory: 1Gi
-    requests:
-      cpu: 200m
+      cpu: 500m
       memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
   persistence:
     enabled: true
     size: 5Gi
@@ -149,11 +149,11 @@ zookeeper:
   replicas: 1
   resources:
     limits:
-      cpu: 500m
-      memory: 512Mi
-    requests:
-      cpu: 100m
+      cpu: 300m
       memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 128Mi
   persistence:
     enabled: true
     size: 1Gi

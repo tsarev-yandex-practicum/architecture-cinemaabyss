@@ -5,8 +5,8 @@
 1. Спроектируйте to be архитектуру КиноБездны, разделив всю систему на отдельные домены и организовав интеграционное взаимодействие и единую точку вызова сервисов.
 Результат представьте в виде контейнерной диаграммы в нотации С4.
 Добавьте ссылку на файл в этот шаблон
-[ссылка на файл](ссылка)
-
+[C4 Container Diagram](//www.plantuml.com/plantuml/png/bLPlRnF74txlJx6_I3_9bXmx0Ie5NX6I5298Qt0GKjz4vykId6BVMVS7SAjAc02bSaNKIfMggeBIgkfRsy5WJ6A-mkutwZopllWu7vKh9VBkxExCCy_ycRiSX9OVHerwxd-EQzUZNIdsmx0PN2gNVUj-QSy9zwDQ54ZVzjnGkc79zXhbPjroyMOn27VhJgsyTc6n0j7jhHlbXXM4qYVHpXgzi1nN-gKczET29wnBSIOLwuwrvriDiIZMQD-mLckj813vRM_nYXIhlhtlXD8E8ryMShcAz0FFpGD8KIpSffy5-bKlrLYzrp-ej_JRLrtzI0sm5-g3Ue-jVgp6-g4wqPsaZGLIM6qHpCRE5IzoTos_bRVvsC8nAKu28i_2kvxVM2Y8Rt8v8SJKXNpJznwqwFvgPLDSjK9vtsg9igX0AghIl-VO4ZYlUepsP_LQ3TKf0JiI17MilrCZrHMghv-eCPrrIqBzJXvq2VnGlTM7Qg0VmHTuGgwH9wUY6lgMkrSd_ZvtzWIzUg-FS6UisxX3gm6PE2M5xuGw8Jt7zAohdz9gI5PvyvWsiApRk3B6RPYazrq1VERXYEwILhRRfzEsxX30bmprDKlVg25ePvXGIWuD5cb1tAjZeOQ4YtKy1IRzYFuFzNCex-g7-Xdz7vAGF3NuzFCIHIR5SCDplJeb8V6tDLac6Fs5G35txC8WvKqi18WXYSO4c83GUa2E_0av0Us3mPZfh7Gw0XiYZwGB2iKujt3sXfxpMSLgDQWup37Z-G32r2Y-K8rgWUqxpT3ntA006cS39aoCOp1ZslQnv7lz-1Pso70Y3T4VgnESY2tldYE3J09ni1EOR6GQ8SX8pz-oOivnPL90RP-G_wGxP9U8ORi8tqmIPR8Be3X4eiCLtG4rAVr5mQIUuYsEYu9M0_KEUKAFZeqqmqrv3_mdtDnWmVnkjibyJtVOq3i424d3oN8IPtZY2jKSaXtWo7ygVmIU2hR7fJkAIxSlhbjt3onJ2eWeF-Z5dCJb2xtiSO-ZFgBh-4F67fEjXs06hC3khE_hjNpJ2y8zNw9rLSooUlF6maSxiNo1tVyBXg0AvgUX67mY-q5-CHMaL0tmZMJQqse4YI4PR-0uNf9RgO12EklIpKX6Cdy0xj1TcvQzBmsLy84Nubnf-Jnxz2Fh7Y4Q72DcytjJwHpAFqX2mC3h9S7ri6ZIfIWmKCusJLF5apqzVA5wfBMD4gLeJtiTkTu6VFs4JPzE6Xk_Mzpr7VeLP0srUQ8F6SSexd62X63jjJuKoGpyP6P_xNa7KZPvy7tbUTTvlP3Ug5_XE2cBHmoC7G450iMT1e4t96POOQvt8kUCtjkRK7j7rdZ5TJCsQSDcE7W26qDj7DtP04nDVdisTZSUX7dpQR5ZsTmJKPzEU2sgYLKZ46kRvRLrjlnAzTWcHjQwPnzGoEAACSbQv7Q80aJFvJxABlDHiYwdlFI5CJUbGDoIUquG-Yr0JUBSjq7z9wyBlb5ol4Aolk91amtueyX3aB9vi18W455D-guCgLkNnPRZEWSaO2Clc0rsabQ9O8ynPr5VP1q630Cdd0BFkFlsaWq528jYqqNlCCCZTqlM9vzPySVDjUtjIammLxJk0CIjZUfstFaG7ggBbQMb9IY1ZidhnFnMBqsXwZOWc1QPqYjuo1P5F4-BugF12RD0GpOI9b8JRZv3aocO1tRn_valfKAsgSIKcTyKJw8aTjOu9IRHlDNVPe12JPcRwJCivs_KSpJcL3C7hksrIlcp2-VFJPnD4VfV0QOCe2l4Gpt385jCyyhTYEbDpzJq54PaTYDR5eJg9zlHSFv67mEwk7GHWFuTJyOGJoEoALEZ1X3XsoZT8fDptRYKiiy09WQJlN_E3XzhExUyicoyIVHsNitNpBDGfLis6bzsb6Qwdkx4O5OI3rznIqwErko7kUgrB-_itDYukl75UhwGkopTtQXH_mS0)
+   [скриншот](screenshots/task-1_C4%20Container%20Diagram.png) (на всякий случай приложил картинку дополнительно)
 # Задание 2
 
 ### 1. Proxy
@@ -40,6 +40,8 @@
 ```
 
 - После реализации запустите postman тесты - они все должны быть зеленые (кроме events).
+
+  
 - Отправьте запросы к API Gateway:
    ```bash
    curl http://localhost:8000/api/movies
@@ -58,6 +60,11 @@
 
 Необходимые тесты для проверки этого API вызываются при запуске npm run test:local из папки tests/postman 
 Приложите скриншот тестов и скриншот состояния топиков Kafka из UI http://localhost:8090 
+[скриншот](screenshots/task-2.1.png)
+[скриншот](screenshots/task-2.2.png)
+[скриншот](screenshots/task-2.3.png)
+[скриншот](screenshots/task-2.4.png)
+[скриншот](screenshots/task-2.5_CI.png)
 
 # Задание 3
 
@@ -275,6 +282,8 @@ cat .docker/config.json | base64
 #### Шаг 3
 Добавьте сюда скриншота вывода при вызове https://cinemaabyss.example.com/api/movies и  скриншот вывода event-service после вызова тестов.
 
+[скриншот](screenshots/task-3.1.png)
+[скриншот](screenshots/task-3.2.png)
 
 # Задание 4
 Для простоты дальнейшего обновления и развертывания вам как архитектуру необходимо так же реализовать helm-чарты для прокси-сервиса и проверить работу 
@@ -350,6 +359,8 @@ minikube tunnel
 https://cinemaabyss.example.com/api/movies
 и приложите скриншот развертывания helm и вывода https://cinemaabyss.example.com/api/movies
 
+[скриншот](screenshots/task-4.1_kubectl%20get%20pods%20-n%20cinemaabyss.png)
+[скриншот](screenshots/task-4.2_cinemaabyss.example.com_api_movies%20.png)
 ## Удаляем все
 
 ```bash
