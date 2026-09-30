@@ -59,6 +59,29 @@
 Необходимые тесты для проверки этого API вызываются при запуске npm run test:local из папки tests/postman 
 Приложите скриншот тестов и скриншот состояния топиков Kafka из UI http://localhost:8090 
 
+### Результаты
+
+Проверка миграции путем запросов на `/api/movies` при разных значениях `MOVIES_MIGRATION_PERCENT`:
+- 0% → всё на монолит  
+  ![0%](screenshots/task2_monolith_only.png)
+- 100% → всё на movies-service  
+  ![100%](screenshots/task2_movies-service_only.png)
+- 50% → пополам  
+  ![50%](screenshots/task2_50_percents.png)
+
+Events пишет movie/user/payment в Kafka и сам же читает
+
+Тесты `npm run test:local` — все зелёные:  
+![тесты](screenshots/task2_tests_passed.png)
+
+Топики в Kafka UI (`localhost:8090`):  
+![топики](screenshots/task2_kafka_topics.png)
+
+Сообщения:  
+![movie](screenshots/task2_kafka_movie-events.png)  
+![user](screenshots/task2_kafka_user-events.png)  
+![payment](screenshots/task2_kafka_payment-events.png)
+
 # Задание 3
 
 Команда начала переезд в Kubernetes для лучшего масштабирования и повышения надежности. 
