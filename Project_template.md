@@ -71,7 +71,7 @@
 
 Events пишет movie/user/payment в Kafka и сам же читает
 
-Тесты `npm run test:local` — все зелёные:  
+Тесты `npm run test:local` - все зелёные:  
 ![тесты](screenshots/task2_tests_passed.png)
 
 Топики в Kafka UI (`localhost:8090`):  
@@ -300,7 +300,7 @@ cat .docker/config.json | base64
 #### Шаг 3
 Добавьте сюда скриншота вывода при вызове https://cinemaabyss.example.com/api/movies и  скриншот вывода event-service после вызова тестов.
 
-`http://cinemaabyss.example.com/api/movies` — список фильмов:  
+`http://cinemaabyss.example.com/api/movies` - список фильмов:  
 ![api/movies](screenshots/task3_api_movies.png)
 
 Отфильтрованные логи events-service после запуска тестов:  
@@ -379,6 +379,12 @@ minikube tunnel
 Потом вызовите 
 https://cinemaabyss.example.com/api/movies
 и приложите скриншот развертывания helm и вывода https://cinemaabyss.example.com/api/movies
+
+Развёртывание через Helm и `get pods` после развёртывания:  
+![helm deployment](screenshots/task4_helm_deployment.png)
+
+`http://cinemaabyss.example.com/api/movies` - список фильмов:  
+![api/movies](screenshots/task4_api_movies.png)
 
 ## Удаляем все
 
