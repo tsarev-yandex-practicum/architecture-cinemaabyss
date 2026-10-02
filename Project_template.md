@@ -132,6 +132,8 @@ jobs:
 Как только сборка отработает и в github registry появятся ваши образы, можно переходить к блоку настройки Kubernetes
 Успешным результатом данного шага является "зеленая" сборка и "зеленые" тесты
 
+Сборка Docker Build and Push (proxy + events):  
+![Docker Build and Push](screenshots/task3_docker_build_and_push.png)
 
 ### Proxy в Kubernetes
 
@@ -298,6 +300,11 @@ cat .docker/config.json | base64
 #### Шаг 3
 Добавьте сюда скриншота вывода при вызове https://cinemaabyss.example.com/api/movies и  скриншот вывода event-service после вызова тестов.
 
+`http://cinemaabyss.example.com/api/movies` — список фильмов:  
+![api/movies](screenshots/task3_api_movies.png)
+
+Отфильтрованные логи events-service после запуска тестов:  
+![events-service logs](screenshots/task3_events-service_logs.png)
 
 # Задание 4
 Для простоты дальнейшего обновления и развертывания вам как архитектуру необходимо так же реализовать helm-чарты для прокси-сервиса и проверить работу 
