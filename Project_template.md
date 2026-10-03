@@ -5,7 +5,7 @@
 1. Спроектируйте to be архитектуру КиноБездны, разделив всю систему на отдельные домены и организовав интеграционное взаимодействие и единую точку вызова сервисов.
 Результат представьте в виде контейнерной диаграммы в нотации С4.
 Добавьте ссылку на файл в этот шаблон
-[ссылка на файл](ссылка)
+[C4 Container To-Be](diagrams/c4_containers.png)
 
 # Задание 2
 
@@ -59,6 +59,29 @@
 Необходимые тесты для проверки этого API вызываются при запуске npm run test:local из папки tests/postman 
 Приложите скриншот тестов и скриншот состояния топиков Kafka из UI http://localhost:8090 
 
+### Результаты
+
+Проверка миграции путем запросов на `/api/movies` при разных значениях `MOVIES_MIGRATION_PERCENT`:
+- 0% → всё на монолит  
+  ![0%](screenshots/task2_monolith_only.png)
+- 100% → всё на movies-service  
+  ![100%](screenshots/task2_movies-service_only.png)
+- 50% → пополам  
+  ![50%](screenshots/task2_50_percents.png)
+
+Events пишет movie/user/payment в Kafka и сам же читает
+
+Тесты `npm run test:local` - все зелёные:  
+![тесты](screenshots/task2_tests_passed.png)
+
+Топики в Kafka UI (`localhost:8090`):  
+![топики](screenshots/task2_kafka_topics.png)
+
+Сообщения:  
+![movie](screenshots/task2_kafka_movie-events.png)  
+![user](screenshots/task2_kafka_user-events.png)  
+![payment](screenshots/task2_kafka_payment-events.png)
+
 # Задание 3
 
 Команда начала переезд в Kubernetes для лучшего масштабирования и повышения надежности. 
@@ -109,6 +132,8 @@ jobs:
 Как только сборка отработает и в github registry появятся ваши образы, можно переходить к блоку настройки Kubernetes
 Успешным результатом данного шага является "зеленая" сборка и "зеленые" тесты
 
+Сборка Docker Build and Push (proxy + events):  
+![Docker Build and Push](screenshots/task3_docker_build_and_push.png)
 
 ### Proxy в Kubernetes
 
@@ -275,6 +300,11 @@ cat .docker/config.json | base64
 #### Шаг 3
 Добавьте сюда скриншота вывода при вызове https://cinemaabyss.example.com/api/movies и  скриншот вывода event-service после вызова тестов.
 
+`http://cinemaabyss.example.com/api/movies` - список фильмов:  
+![api/movies](screenshots/task3_api_movies.png)
+
+Отфильтрованные логи events-service после запуска тестов:  
+![events-service logs](screenshots/task3_events-service_logs.png)
 
 # Задание 4
 Для простоты дальнейшего обновления и развертывания вам как архитектуру необходимо так же реализовать helm-чарты для прокси-сервиса и проверить работу 
@@ -349,6 +379,12 @@ minikube tunnel
 Потом вызовите 
 https://cinemaabyss.example.com/api/movies
 и приложите скриншот развертывания helm и вывода https://cinemaabyss.example.com/api/movies
+
+Развёртывание через Helm и `get pods` после развёртывания:  
+![helm deployment](screenshots/task4_helm_deployment.png)
+
+`http://cinemaabyss.example.com/api/movies` - список фильмов:  
+![api/movies](screenshots/task4_api_movies.png)
 
 ## Удаляем все
 
