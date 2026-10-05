@@ -1,0 +1,99 @@
+@startuml containers_to_be
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+LAYOUT_TOP_DOWN()
+LAYOUT_WITH_LEGEND()
+skinparam ranksep 140
+skinparam nodesep 50
+skinparam linetype polyline
+title C4 Container - "Кинобездна" (To-Be)
+
+Person_Ext(viewer, "Зритель", "Мобильное приложение, браузер, Smart TV")
+Person(marketer, "Команда продаж и маркетинга", "Кампании и промокоды")
+Person(editor, "Контент-менеджер", "Каталог, метаданные, подборки")
+Person(support, "Служба поддержки", "Обращения зрителей: профиль, платежи, подписки")
+
+System_Ext(reco, "Рекомендательная система", "Сторонняя, формирует подборки")
+
+System_Boundary(ca, "Кинобездна") {
+  Container(gw, "Шлюз API", "HTTPS / REST", "Единая точка входа. Проверка токена, маршрутизация, адаптация ответа под устройство")
+
+  Container(users, "Пользователи", "REST", "Регистрация, вход, профиль, избранное")
+  Container(movies, "Фильмы", "REST", "Метаданные, жанры, актёры, оценки, ссылки на контент")
+  Container(pay, "Платежи", "REST", "Проведение платежей, история")
+  Container(subs, "Подписки", "REST", "Планы, продление, скидки и промокоды")
+  Container(mkt, "Маркетинг", "REST", "Кампании, сегменты, рассылки")
+
+  ContainerDb(users_db, "БД пользователей", "PostgreSQL", "Учётные записи, профили, избранное")
+  ContainerDb(movies_db, "БД фильмов", "PostgreSQL", "Метаданные, жанры, актёры, оценки, подборки")
+  ContainerDb(pay_db, "БД платежей", "PostgreSQL", "Платежи и транзакции")
+  ContainerDb(subs_db, "БД подписок", "PostgreSQL", "Подписки, планы, скидки, промокоды")
+  ContainerDb(mkt_db, "БД маркетинга", "PostgreSQL", "Кампании, сегменты, рассылки")
+
+  ContainerQueue(kafka, "Шина событий", "Kafka", "События пользователей, фильмов, платежей, подписок")
+  Container(events, "Сервис событий", "Kafka producer / consumer", "Мост с рекомендательной системой: отдаёт события просмотров и оценок, принимает готовые подборки")
+}
+
+together {
+  System_Ext(partners, "Партнёры", "Сервисы лояльности, маркетплейсы")
+  System_Ext(psp, "Платёжные системы", "Приём платежей")
+  System_Ext(content, "Контент-провайдеры", "Метаданные и видеопотоки из сторонних сервисов и открытых источников")
+}
+
+Rel_D(viewer, gw, "Смотрит, оценивает, оплачивает подписку", "HTTPS")
+Rel_D(marketer, gw, "Управляет кампаниями", "HTTPS")
+Rel_D(editor, gw, "Ведёт каталог фильмов", "HTTPS")
+Rel_D(support, gw, "Решает обращения зрителей", "HTTPS")
+Rel(viewer, content, "Видеопоток по полученной ссылке", "HLS / DASH")
+
+Lay_R(viewer, marketer)
+Lay_R(marketer, editor)
+Lay_R(editor, support)
+
+Rel_D(gw, users, "REST")
+Rel_D(gw, movies, "REST")
+Rel_D(gw, pay, "REST")
+Rel_D(gw, subs, "REST")
+Rel_D(gw, mkt, "REST")
+
+Lay_R(users, movies)
+Lay_R(movies, pay)
+Lay_R(pay, subs)
+Lay_R(subs, mkt)
+
+Lay_D(users, users_db)
+Lay_D(movies, movies_db)
+Lay_D(pay, pay_db)
+Lay_D(subs, subs_db)
+Lay_D(mkt, mkt_db)
+
+Rel_D(users, users_db, "Чтение и запись", "SQL")
+Rel_D(movies, movies_db, "Чтение и запись", "SQL")
+Rel_D(pay, pay_db, "Чтение и запись", "SQL")
+Rel_D(subs, subs_db, "Чтение и запись", "SQL")
+Rel_D(mkt, mkt_db, "Чтение и запись", "SQL")
+
+Rel(movies, subs, "Проверка активной подписки", "REST")
+Rel_R(subs, pay, "Оплата подписки", "REST")
+
+Rel(movies, content, "Импорт метаданных, ссылка на поток", "REST")
+Rel(pay, psp, "Проведение платежа", "REST")
+Rel(subs, partners, "Баллы, скидки, партнёрские подписки", "REST")
+
+Rel_D(users, kafka, "Регистрация, вход", "асинхронно")
+Rel_D(movies, kafka, "Просмотр, оценка", "асинхронно")
+Rel_D(pay, kafka, "Платёж успешен / неудачен", "асинхронно")
+Rel_D(subs, kafka, "Подписка оформлена / истекла", "асинхронно")
+Rel_U(kafka, mkt, "События для кампаний", "асинхронно")
+Rel_U(kafka, movies, "Готовые подборки", "асинхронно")
+Rel_D(kafka, events, "Просмотры и оценки", "асинхронно")
+Rel_U(events, kafka, "Готовые подборки", "асинхронно")
+Rel_D(events, reco, "Поток событий", "асинхронно")
+Rel_U(reco, events, "Готовые подборки", "асинхронно")
+
+Lay_R(mkt, partners)
+Lay_D(partners, psp)
+Lay_D(psp, content)
+Lay_D(kafka, events)
+Lay_D(events, reco)
+
+@enduml
